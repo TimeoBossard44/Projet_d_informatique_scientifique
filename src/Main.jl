@@ -1,6 +1,6 @@
 include("Astar.jl")
 include("BFS.jl")
-include("dijkstra.jl")
+include("Dijkstra.jl")
 
 
 #algoBFS("test.map",(1,1),(3,3))

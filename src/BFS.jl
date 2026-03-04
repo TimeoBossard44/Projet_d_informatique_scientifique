@@ -1,5 +1,5 @@
-include("map_en_graphe.jl")
-include("affichage.jl")
+include("MapEnGraphe.jl")
+include("Affichage.jl")
 using DataStructures
 
 function algoBFS(fname, vD, vA)
