@@ -1,16 +1,16 @@
 ## Résultat sur différente instances
 
-### Aurora.map
+### • Aurora.map
 
 
-### bootybay.map
+### • bootybay.map
 
-algoBFS("bootybay.map",(343,198),(337,213))
-Distance D -> A : 73.0
-Number of states evaluated : 841
-Path D -> A : (343, 198)→(343, 199)→(343, 200)→(343, 201)→(343, 202)→(343, 203)→(343, 204)→(343, 205)→(343, 206)→(343, 207)→(343, 208)→(343, 209)→(343, 210)→(343, 211)→(343, 212)→(343, 213)→(342, 213)→(341, 213)→(340, 213)→(339, 213)→(338, 213)→(337, 213)
-Temps d'execution : 28.029148 ms
-Nombre d'allocation : 7356248
+  •algoBFS("bootybay.map",(343,198),(337,213))
+  Distance D -> A : 73.0
+  Number of states evaluated : 841
+  Path D -> A : (343, 198)→(343, 199)→(343, 200)→(343, 201)→(343, 202)→(343, 203)→(343, 204)→(343, 205)→(343, 206)→(343, 207)→(343, 208)→(343, 209)→(343, 210)→(343, 211)→(343, 212)→(343, 213)→(342,       213)→(341, 213)→(340, 213)→(339, 213)→(338, 213)→(337, 213)
+  Temps d'execution : 28.029148 ms
+  Nombre d'allocation : 7356248
 
 algoDijkstra("bootybay.map",(343,198),(337,213))
 Distance D -> A : 43.0
@@ -35,4 +35,4 @@ Nombre d'allocation : 6342928
 
 
 
-### Berlin_0_256.map
+### • Berlin_0_256.map
