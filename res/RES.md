@@ -1,9 +1,9 @@
 ## Résultat sur différente instances
 ---
-### • Aurora.map
+### 1 • Aurora.map
 
 ---
-### • bootybay.map
+### 2 • bootybay.map
 
 #### BFS
         ◦ algoBFS("bootybay.map",(343,198),(337,213))
@@ -34,4 +34,4 @@
         Temps d'execution : 0.40956800000000004 ms
         Nombre d'allocation : 6342928
 ---
-### • Berlin_0_256.map
+### 3 • Berlin_0_256.map
