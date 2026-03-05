@@ -1,4 +1,4 @@
-# 🚀 Path Finding (PF)
+# Path Finding (PF)
 
 > Le but de ce projet est de déterminer le plus court chemin entre deux points connu.
 > Pour cela nous allons utilise plusieur algorithmes de Path Finding.
