@@ -57,7 +57,11 @@ function algoDijkstra(fname, vD, vA)
                         if newdist < dist[ni, nj] # Nouvelle distance plus court que l'ancienne on la remplace
                             dist[ni, nj] = newdist
                             predecesseur[ni, nj] = pos # Ajoute de la positon actuelle sur la nouvelle position
-                            enqueue!(pq, (ni, nj) => newdist) 
+                            if haskey(pq, (ni, nj))
+                                pq[(ni, nj)] = newdist
+                            else
+                                enqueue!(pq, (ni, nj) => newdist) 
+                            end
                         end
                     end
                 end

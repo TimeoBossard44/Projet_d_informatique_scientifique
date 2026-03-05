@@ -61,7 +61,11 @@ function algoAstar(fname, vD, vA)
                         if newvalue < dist[ni, nj] + newh # Nouvelle (distance + heuristique) plus court que l'ancienne on la remplace
                             dist[ni, nj] = newdist
                             predecesseur[ni, nj] = pos # Ajoute de la positon actuelle sur la nouvelle position
-                            enqueue!(pq, (ni, nj) => newvalue) 
+                            if haskey(pq, (ni, nj))
+                                pq[(ni, nj)] = newvalue
+                            else
+                                enqueue!(pq, (ni, nj) => newvalue)
+                            end
                         end
                     end
                 end

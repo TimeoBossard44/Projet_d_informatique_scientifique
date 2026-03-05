@@ -62,7 +62,11 @@ function algoGlouton(fname, vD, vA)
                             dist[ni, nj] = newdist
                             newh = heuristique((ni,nj),vA)
                             predecesseur[ni, nj] = pos # Ajoute de la positon actuelle sur la nouvelle position
-                            enqueue!(pq, (ni, nj) => newh)
+                            if haskey(pq, (ni, nj))
+                                pq[(ni, nj)] = newh
+                            else
+                                enqueue!(pq, (ni, nj) => newh)
+                            end
                         end
                    end
                 end
