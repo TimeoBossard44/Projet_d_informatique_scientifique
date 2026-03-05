@@ -2,12 +2,14 @@ include("MapEnGraphe.jl")
 include("Affichage.jl")
 using DataStructures
 
+
 function algoDijkstra(fname, vD, vA)
+
+    # Matrice pondérée du fichier fname
+    M = lireMapPondere("../dat/$fname") 
 
     temps = @elapsed begin
         allocation = @allocated begin
-            # Matrice pondérée (utilise lireMapPondere de map_en_graphe.jl)
-            M = lireMapPondere("../dat/$fname")
 
             rows = size(M, 1)
             cols = size(M, 2)
@@ -16,15 +18,15 @@ function algoDijkstra(fname, vD, vA)
             directions = [(-1,0), (0,1), (1,0), (0,-1)]
 
             # Distance minimale connue jusqu'à chaque case
-            dist = fill(Inf, rows, cols)
+            dist = fill(Inf, rows, cols) # Création d'une matrice avec que des infinis
             dist[vD[1], vD[2]] = 0
 
             visites      = falses(rows, cols)
             predecesseur = fill((0,0), rows, cols)
 
             # File de priorité : clé = (i,j), priorité = distance
-            pq = PriorityQueue{Tuple{Int,Int}, Float64}()
-            enqueue!(pq, vD => 0)
+            pq = PriorityQueue{Tuple{Int,Int}, Int64}() # File de priorité pour avoir accées à la plus court distance en premier
+            enqueue!(pq, vD => 0) 
 
             nb_etats = 0
             cheminValide = false
@@ -49,32 +51,32 @@ function algoDijkstra(fname, vD, vA)
                     ni = i + dl
                     nj = j + dc
 
-                    # reste dans la Map et pas un mur
+                    # Reste dans la Map et pas un mur
                     if 1 <= ni <= rows && 1 <= nj <= cols && M[ni, nj] != 0
                         newdist = dist[i, j] + M[ni, nj]
-                        if newdist < dist[ni, nj]
+                        if newdist < dist[ni, nj] # Nouvelle distance plus court que l'ancienne on la remplace
                             dist[ni, nj] = newdist
-                            predecesseur[ni, nj] = pos
-                            enqueue!(pq, (ni, nj) => newdist)
+                            predecesseur[ni, nj] = pos # Ajoute de la positon actuelle sur la nouvelle position
+                            enqueue!(pq, (ni, nj) => newdist) 
                         end
                     end
                 end
             end
-
-            # Reconstruction du chemin
-            chemin = []
-            if cheminValide
-                etape = vA
-                while etape !== (0,0)
-                    push!(chemin, etape)
-                    etape = predecesseur[etape[1], etape[2]]
-                end
-                chemin = reverse(chemin)
-            end
-
-            distance = cheminValide ? dist[vA[1], vA[2]] : 0
         end
     end
+
+    # Reconstruction du chemin
+    chemin = []
+    if cheminValide
+        etape = vA
+        while etape !== (0,0)
+            push!(chemin, etape)
+            etape = predecesseur[etape[1], etape[2]]
+        end
+        chemin = reverse(chemin)
+    end
+
+    distance = cheminValide ? dist[vA[1], vA[2]] : 0
 
     return afficherResultat(distance, nb_etats, chemin, temps, allocation)
 end

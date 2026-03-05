@@ -6,10 +6,10 @@ function heuristique(v, vA)
     return (abs(v[1] - vA[1]) + abs(v[2] - vA[2]))
 end
 
-function algoAstar(fname, vD, vA)
+function algoGlouton(fname, vD, vA)
 
     # Matrice pondérée du fichier fname
-    M = lireMapPondere("../dat/$fname")
+    M = lireMapPondere("../dat/$fname")    
 
     temps = @elapsed begin
         allocation = @allocated begin
@@ -17,18 +17,20 @@ function algoAstar(fname, vD, vA)
             rows = size(M, 1)
             cols = size(M, 2)
 
+            # 4 voisins : haut, droite, bas, gauche
             directions = [(-1,0), (0,1), (1,0), (0,-1)]
 
-            # g(v) : coût réel du chemin optimal de vD à v dans la partie explorée
-            dist = fill(Inf, rows, cols)
+            # Distance minimale connue jusqu'à chaque case
+            dist = fill(Inf, rows, cols) # Création d'une matrice avec que des infinis
             dist[vD[1], vD[2]] = 0
 
             visites      = falses(rows, cols)
             predecesseur = fill((0,0), rows, cols)
 
-            # File de priorité : clé = (i,j), priorité = distance + heuristique
+            # File de priorité : clé = (i,j), priorité = distance
             pq = PriorityQueue{Tuple{Int,Int}, Int64}() # File de priorité pour avoir accées à la plus court distance en premier
-            enqueue!(pq, vD => 0) 
+            h = heuristique(vD,vA)
+            enqueue!(pq, vD => h) 
 
             nb_etats = 0
             cheminValide = false
@@ -53,17 +55,16 @@ function algoAstar(fname, vD, vA)
                     ni = i + dl
                     nj = j + dc
 
-                    # Reste dans la Map et pas un mur
+                   # Reste dans la Map et pas un mur
                     if 1 <= ni <= rows && 1 <= nj <= cols && M[ni, nj] != 0
                         newdist = dist[i, j] + M[ni, nj]
-                        newh = heuristique((ni,nj),vA)
-                        newvalue = newdist + newh
-                        if newvalue < dist[ni, nj] + newh # Nouvelle (distance + heuristique) plus court que l'ancienne on la remplace
+                        if newdist < dist[ni, nj] # Nouvelle distance plus court que l'ancienne on la remplace
                             dist[ni, nj] = newdist
+                            newh = heuristique((ni,nj),vA)
                             predecesseur[ni, nj] = pos # Ajoute de la positon actuelle sur la nouvelle position
-                            enqueue!(pq, (ni, nj) => newvalue) 
+                            enqueue!(pq, (ni, nj) => newh)
                         end
-                    end
+                   end
                 end
             end
         end
