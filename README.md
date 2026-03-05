@@ -49,8 +49,8 @@ Avant de commencer, assure-toi d'avoir installé :
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/TimeoBossard44/Projet_d_informatique_scientifique.git
-cd Projet_d_informatique_scientifique
+git clone https://github.com/TimeoBossard44/Path_Finding.git
+cd Path_Finding
 ```
 
 ### 2. Installer les dépendances Julia
